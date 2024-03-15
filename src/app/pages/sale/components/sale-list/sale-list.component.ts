@@ -89,7 +89,7 @@ export class SaleListComponent implements OnInit {
   }
 
   saleViewDetail(sale: SaleResponse) {
-    this._router.navigate(["/proceso-venta/crear", sale.SaleId]);
+    this._router.navigate(["/proceso-venta/crear", sale.saleId]);
   }
 
   saleCancel(sale: SaleResponse) {
@@ -107,7 +107,7 @@ export class SaleListComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this._saleService
-          .saleCancel(sale.SaleId)
+          .saleCancel(sale.saleId)
           .subscribe(() => this.setGetInputsSale(true));
       }
     });

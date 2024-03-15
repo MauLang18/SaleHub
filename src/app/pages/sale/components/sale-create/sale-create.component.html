@@ -20,6 +20,24 @@
                 </div>
                 <br />
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Tipo de Voucher</mat-label>
+                        <mat-select formControlName="voucherDocumentTypeId" (selectionChange)="listVoucherDocumentTypes()">
+                            <mat-option *ngFor="let item of voucherDocumentTypes" [value]="item.voucherDocumentTypeId">
+                                {{ item.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label mat-label>Número de Voucher</mat-label>
+                        <input matInput formControlName="text" />
+                        <mat-error *ngIf="form.get('voucherNumber').hasError('required')">
+                            Campo Numero de Voucher es requerido.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <app-select-autocomplete label="Clientes" [control]="form.get('clientId')" [required]="true"
                         [listOptions]="clientSelect" [readonly]="viewDetailRead"></app-select-autocomplete>
 

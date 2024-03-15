@@ -3,6 +3,6 @@ export const environment = {
   environment: "local",
   clientId:
     "441710587933-o28p6ici53uclbea0rjveo6gcdvkuaes.apps.googleusercontent.com",
-  api: "http://localhost:5270/api/",
+  api: "http://172.174.251.150:10100/api/",
   filenameCsv: "dev-salehub",
 };

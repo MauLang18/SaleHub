@@ -1,5 +1,6 @@
 export interface SaleResponse {
-  SaleId: number;
+  saleId: number;
+  voucherNumber: string;
   provider: string;
   warehouse: string;
   totalAmount: number;
@@ -22,6 +23,8 @@ export interface ProductDetailsResponse {
 
 export interface SaleByIdResponse {
   saleId: number;
+  voucherNumber: string;
+  voucherDocumentTypeId: number;
   observation: string;
   subTotal: number;
   iva: number;

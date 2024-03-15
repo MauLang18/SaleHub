@@ -39,6 +39,18 @@ const searchOptionsProducts: SearchOptions[] = [
 
 const tableColumns: TableColumns<SaleResponse>[] = [
   {
+    label: "VOUCHER",
+    cssLabel: ["font-bold", "text-sm"],
+    property: "voucherNumber",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
+    type: "textUppercase",
+    sticky: true,
+    sort: true,
+    sortProperty: "voucherNumber",
+    visible: true,
+    download: true,
+  },
+  {
     label: "CLIENTE",
     cssLabel: ["font-bold", "text-sm"],
     property: "client",
@@ -166,12 +178,12 @@ const tableColumnsProducts: TableColumns<ProductDetailsResponse>[] = [
   {
     label: "PRECIO U.",
     cssLabel: ["font-bold", "text-xxs"],
-    property: "unitPurcharsePrice",
+    property: "unitSalePrice",
     cssProperty: ["font-semibold", "text-xs", "text-left"],
     type: "unitPurcharsePrice",
     sticky: false,
     sort: true,
-    sortProperty: "unitPurcharsePrice",
+    sortProperty: "unitSalePrice",
     visible: true,
     download: true,
   },

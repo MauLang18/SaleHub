@@ -7,13 +7,13 @@ import { environment } from './../../../environments/environment';
 })
 export class CustomTitleService {
 
-    prefix = environment.production ? '' : 'DEV:: '
+    prefix = environment.production ? '' : ''
 
     constructor(private titleService: Title ) { 
     }
 
     set(title) {
-        this.titleService.setTitle(this.prefix + title +" - SIR TECH® Perú Software de Punto de Venta")
+        this.titleService.setTitle(this.prefix + title +" - SaleHub")
     }
 
 }

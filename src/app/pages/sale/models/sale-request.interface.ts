@@ -5,6 +5,8 @@ export interface SaleRequest {
   totalAmount: number;
   warehouseId: number;
   clientId: number;
+  voucherNumber: string;
+  voucherDocumentTypeId: number;
   saleDetails: SaleDetailRequest[];
 }
 

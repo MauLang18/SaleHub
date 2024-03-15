@@ -19,6 +19,8 @@ import { SaleRequest } from "../../models/sale-request.interface";
 import { SaleService } from "../../services/sale.service";
 import { AlertService } from "@shared/services/alert.service";
 import { Observable } from "rxjs";
+import { VoucherDocumentTypeService } from "@shared/services/voucher-document-type.service";
+import { VoucherDocumentType } from "@shared/models/voucher-document-type.interface";
 
 @Component({
   selector: "vex-sale-create",
@@ -29,7 +31,9 @@ import { Observable } from "rxjs";
 export class SaleCreateComponent implements OnInit {
   componentsaleDetail;
 
+  voucherDocumentTypes: VoucherDocumentType[];
   clientSelect: SelectAutoComplete[];
+  voucherSelect: SelectAutoComplete[];
   warehouseSelect: SelectAutoComplete[];
   form: FormGroup;
   numRecordsProducts: number = 3;
@@ -50,6 +54,8 @@ export class SaleCreateComponent implements OnInit {
     this.form = this._fb.group({
       clientId: ["", Validators.required],
       warehouseId: ["", Validators.required],
+      voucherDocumentTypeId: ["", Validators.required],
+      voucherNumber: ["", Validators.required],
       observation: [""],
     });
   }
@@ -57,6 +63,7 @@ export class SaleCreateComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _clientSelectService: ClientSelectService,
+    private _voucherDocumentTypeService: VoucherDocumentTypeService,
     private _warehouseSelectService: WarehouseSelectService,
     public _saleDetailService: SaleDetailService,
     private _route: Router,
@@ -73,6 +80,7 @@ export class SaleCreateComponent implements OnInit {
   ngOnInit(): void {
     this.listSelectClients();
     this.listSelectWarehouses();
+    this.listVoucherDocumentTypes();
     this.componentsaleDetail = componentSettings;
 
     if (this.saleId > 0) {
@@ -81,10 +89,18 @@ export class SaleCreateComponent implements OnInit {
     }
   }
 
+  listVoucherDocumentTypes(): void {
+    this._voucherDocumentTypeService.listVoucherDocumentTypes().subscribe((resp) => {
+      this.voucherDocumentTypes = resp;
+    });
+  }
+
   saleById(saleId: number) {
     this._saleService.saleById(saleId).subscribe((resp) => {
       this.form.reset({
         clientId: resp.clientId,
+        voucherNumber: resp.voucherNumber,
+        voucherDocumentTypeId: resp.voucherDocumentTypeId,
         warehouseId: resp.warehouseId,
         observation: resp.observation,
       });
@@ -137,7 +153,7 @@ export class SaleCreateComponent implements OnInit {
   }
 
   back() {
-    this._route.navigate(["proceso-compras"]);
+    this._route.navigate(["proceso-ventas"]);
   }
 
   addDetail(products: ProductDetailsResponse) {
@@ -172,7 +188,7 @@ export class SaleCreateComponent implements OnInit {
   }
 
   calculateIVA() {
-    this.iva = this.subtotal * 0.13;
+    //this.iva = this.subtotal * 0.13;
     //this.iva = this.subtotal * 0.0;
   }
 
@@ -203,6 +219,8 @@ export class SaleCreateComponent implements OnInit {
       observation: this.form.value.observation,
       warehouseId: this.form.value.warehouseId,
       clientId: this.form.value.clientId,
+      voucherDocumentTypeId: this.form.value.voucherDocumentTypeId,
+      voucherNumber: this.form.value.voucherNumber,
       subtotal: this.subtotal,
       iva: this.iva,
       totalAmount: this.total,

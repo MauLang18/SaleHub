@@ -170,7 +170,7 @@ export class SaleCreateComponent implements OnInit {
     if (existingProduct) {
       existingProduct.quantity += productCopy.quantity;
       existingProduct.totalAmount =
-        existingProduct.quantity * existingProduct.unitsalePrice;
+        existingProduct.quantity * existingProduct.unitSalePrice;
     } else {
       this.cartDetails.push(productCopy);
     }
@@ -182,14 +182,14 @@ export class SaleCreateComponent implements OnInit {
 
   calculateSubtotal() {
     this.subtotal = this.cartDetails.reduce(
-      (acc, product) => acc + product.quantity * product.unitsalePrice,
+      (acc, product) => acc + product.quantity * product.unitSalePrice,
       0
     );
   }
 
   calculateIVA() {
     //this.iva = this.subtotal * 0.13;
-    //this.iva = this.subtotal * 0.0;
+    this.iva = this.subtotal * 0.0;
   }
 
   calculateTotal() {
@@ -228,7 +228,7 @@ export class SaleCreateComponent implements OnInit {
         (product: ProductDetailsResponse) => ({
           productId: product.productId,
           quantity: product.quantity,
-          unitsalePrice: product.unitSalePrice,
+          unitSalePrice: product.unitSalePrice,
           total: product.totalAmount,
         })
       ),
@@ -237,7 +237,7 @@ export class SaleCreateComponent implements OnInit {
     this._saleService.saleRegister(sale).subscribe((resp) => {
       if (resp.isSuccess) {
         this._alert.success("Excelente", resp.message);
-        this._route.navigate(["proceso-compras"]);
+        this._route.navigate(["proceso-ventas"]);
       } else {
         this._alert.success("Atención", resp.message);
       }

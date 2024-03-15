@@ -122,7 +122,7 @@
                                     {{ product.quantity }}
                                 </td>
                                 <td class="px-6 py-4 font-semibold text-xs text-left">
-                                    {{ product.unitsalePrice | currency : "" : "" }}
+                                    {{ product.unitSalePrice | currency : "" : "" }}
                                 </td>
                                 <td class="px-6 py-4 font-semibold text-xs text-left">
                                     {{ product.totalAmount | currency : "" : "" }}
@@ -166,7 +166,7 @@
                     <br />
                     <div class="flex justify-end">
                         <button class="bg-accent text-accent-contrast" mat-button
-                            [disabled]="form.invalid || cartDetails.length == 0" (click)="saleSave()"
+                            [disabled]="cartDetails.length == 0" (click)="saleSave()"
                             *ngIf="!viewDetailRead">
                             GUARDAR
                         </button>

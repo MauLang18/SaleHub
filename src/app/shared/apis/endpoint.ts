@@ -45,6 +45,24 @@ export const endpoint = {
   PURCHARSE_BY_ID: "Purcharse/",
   PURCHARSE_REGISTER: "Purcharse/Register/",
   PURCHARSE_CANCEL: "Purcharse/Cancel/",
+
+  // SALE MODULE
+  LIST_SALES: "Sale",
+  SALE_BY_ID: "Sale/",
+  SALE_REGISTER: "Sale/Register/",
+  SALE_CANCEL: "Sale/Cancel/",
+  SALE_REPORT: "Sale/Report/",
+
+  // CLIENT MODULE
+  LIST_CLIENTS: "Client",
+  LIST_SELECT_CLIENTS: "Client/Select",
+  CLIENT_REGISTER: "Client/Register/",
+  CLIENT_EDIT: "Client/Edit/",
+  CLIENT_BY_ID: "Client/",
+  CLIENT_REMOVE: "Client/Remove/",
+
+  // DOCUMENT TYPE MODULE
+  LIST_VOUCHER_DOCUMENT_TYPES: "VoucherDocumentType",
 };
 
 export const httpOptions = {

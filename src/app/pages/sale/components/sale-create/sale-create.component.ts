@@ -5,36 +5,36 @@ import { RowClick } from "@shared/models/row-click.interface";
 import { FiltersBox } from "@shared/models/search-options.interface";
 import { SelectAutoComplete } from "@shared/models/select-autocomplete.interface";
 import { IconsService } from "@shared/services/icons.service";
-import { ProviderSelectService } from "@shared/services/provider-select.service";
+import { ClientSelectService } from "@shared/services/client-select.service";
 import { WarehouseSelectService } from "@shared/services/warehouse-select.service";
 import { fadeInRight400ms } from "src/@vex/animations/fade-in-right.animation";
 import { scaleIn400ms } from "src/@vex/animations/scale-in.animation";
 import {
   ProductDetailsResponse,
-  PurcharseByIdResponse,
-} from "../../models/purcharse-response.interface";
-import { PurcharseDetailService } from "../../services/purcharse-detail.service";
-import { componentSettings } from "../purcharse-list/purcharse-list-config";
-import { PurcharseRequest } from "../../models/purcharse-request.interface";
-import { PurcharseService } from "../../services/purcharse.service";
+  SaleByIdResponse,
+} from "../../models/sale-response.interface";
+import { SaleDetailService } from "../../services/sale-detail.service";
+import { componentSettings } from "../sale-list/sale-list-config";
+import { SaleRequest } from "../../models/sale-request.interface";
+import { SaleService } from "../../services/sale.service";
 import { AlertService } from "@shared/services/alert.service";
 import { Observable } from "rxjs";
 
 @Component({
-  selector: "vex-purcharse-create",
-  templateUrl: "./purcharse-create.component.html",
-  styleUrls: ["./purcharse-create.component.scss"],
+  selector: "vex-sale-create",
+  templateUrl: "./sale-create.component.html",
+  styleUrls: ["./sale-create.component.scss"],
   animations: [scaleIn400ms, fadeInRight400ms],
 })
-export class PurcharseCreateComponent implements OnInit {
-  componentPurcharseDetail;
+export class SaleCreateComponent implements OnInit {
+  componentsaleDetail;
 
-  providerSelect: SelectAutoComplete[];
+  clientSelect: SelectAutoComplete[];
   warehouseSelect: SelectAutoComplete[];
   form: FormGroup;
   numRecordsProducts: number = 3;
 
-  icPurcharse = IconsService.prototype.getIcon("icSales");
+  icsale = IconsService.prototype.getIcon("icSales");
   icRemove = IconsService.prototype.getIcon("icDelete");
 
   cartDetails: any | ProductDetailsResponse[] = [];
@@ -43,12 +43,12 @@ export class PurcharseCreateComponent implements OnInit {
   iva: number = 0;
   total: number = 0;
 
-  purcharseId: number = 0;
+  saleId: number = 0;
   viewDetailRead: boolean = false;
 
   initForm(): void {
     this.form = this._fb.group({
-      providerId: ["", Validators.required],
+      clientId: ["", Validators.required],
       warehouseId: ["", Validators.required],
       observation: [""],
     });
@@ -56,49 +56,49 @@ export class PurcharseCreateComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    private _providerSelectService: ProviderSelectService,
+    private _clientSelectService: ClientSelectService,
     private _warehouseSelectService: WarehouseSelectService,
-    public _purcharseDetailService: PurcharseDetailService,
+    public _saleDetailService: SaleDetailService,
     private _route: Router,
-    private _purcharseService: PurcharseService,
+    private _saleService: SaleService,
     private _alert: AlertService,
     private _activatedRoute: ActivatedRoute
   ) {
     this.initForm();
     this._activatedRoute.params.subscribe((params) => {
-      this.purcharseId = params["purcharseId"];
+      this.saleId = params["saleId"];
     });
   }
 
   ngOnInit(): void {
-    this.listSelectProviders();
+    this.listSelectClients();
     this.listSelectWarehouses();
-    this.componentPurcharseDetail = componentSettings;
+    this.componentsaleDetail = componentSettings;
 
-    if (this.purcharseId > 0) {
-      this.purcharseById(this.purcharseId);
+    if (this.saleId > 0) {
+      this.saleById(this.saleId);
       this.viewDetailRead = true;
     }
   }
 
-  purcharseById(purcharseId: number) {
-    this._purcharseService.purcharseById(purcharseId).subscribe((resp) => {
+  saleById(saleId: number) {
+    this._saleService.saleById(saleId).subscribe((resp) => {
       this.form.reset({
-        providerId: resp.providerId,
+        clientId: resp.clientId,
         warehouseId: resp.warehouseId,
         observation: resp.observation,
       });
-      this.cartDetails = resp.purcharseDetails;
+      this.cartDetails = resp.saleDetails;
       this.subtotal = resp.subTotal;
       this.iva = resp.iva;
       this.total = resp.totalAmount;
     });
   }
 
-  listSelectProviders(): void {
-    this._providerSelectService
-      .listSelectProviders()
-      .subscribe((resp) => (this.providerSelect = resp));
+  listSelectClients(): void {
+    this._clientSelectService
+      .listSelectClients()
+      .subscribe((resp) => (this.clientSelect = resp));
   }
 
   listSelectWarehouses(): void {
@@ -108,19 +108,19 @@ export class PurcharseCreateComponent implements OnInit {
   }
 
   search(data: FiltersBox) {
-    this.componentPurcharseDetail.filters.numFilter = data.searchValue;
-    this.componentPurcharseDetail.filters.textFilter = data.searchData;
+    this.componentsaleDetail.filters.numFilter = data.searchValue;
+    this.componentsaleDetail.filters.textFilter = data.searchData;
     this.formatGetInputs();
   }
 
   formatGetInputs() {
     let str = "";
 
-    if (this.componentPurcharseDetail.filters.textFilter != null) {
-      str += `&numFilter=${this.componentPurcharseDetail.filters.numFilter}&textFilter=${this.componentPurcharseDetail.filters.textFilter}`;
+    if (this.componentsaleDetail.filters.textFilter != null) {
+      str += `&numFilter=${this.componentsaleDetail.filters.numFilter}&textFilter=${this.componentsaleDetail.filters.textFilter}`;
     }
 
-    this.componentPurcharseDetail.getInputs = str;
+    this.componentsaleDetail.getInputs = str;
   }
 
   rowClick(rowClick: RowClick<ProductDetailsResponse>) {
@@ -154,7 +154,7 @@ export class PurcharseCreateComponent implements OnInit {
     if (existingProduct) {
       existingProduct.quantity += productCopy.quantity;
       existingProduct.totalAmount =
-        existingProduct.quantity * existingProduct.unitPurcharsePrice;
+        existingProduct.quantity * existingProduct.unitsalePrice;
     } else {
       this.cartDetails.push(productCopy);
     }
@@ -166,7 +166,7 @@ export class PurcharseCreateComponent implements OnInit {
 
   calculateSubtotal() {
     this.subtotal = this.cartDetails.reduce(
-      (acc, product) => acc + product.quantity * product.unitPurcharsePrice,
+      (acc, product) => acc + product.quantity * product.unitsalePrice,
       0
     );
   }
@@ -192,31 +192,31 @@ export class PurcharseCreateComponent implements OnInit {
     this.calculateTotal();
   }
 
-  purcharseSave() {
+  saleSave() {
     if (this.form.invalid) {
       return Object.values(this.form.controls).forEach((controls) => {
         controls.markAllAsTouched();
       });
     }
 
-    const purcharse: PurcharseRequest = {
+    const sale: SaleRequest = {
       observation: this.form.value.observation,
       warehouseId: this.form.value.warehouseId,
-      providerId: this.form.value.providerId,
+      clientId: this.form.value.clientId,
       subtotal: this.subtotal,
       iva: this.iva,
       totalAmount: this.total,
-      purcharseDetails: this.cartDetails.map(
+      saleDetails: this.cartDetails.map(
         (product: ProductDetailsResponse) => ({
           productId: product.productId,
           quantity: product.quantity,
-          unitPurcharsePrice: product.unitPurcharsePrice,
+          unitsalePrice: product.unitSalePrice,
           total: product.totalAmount,
         })
       ),
     };
 
-    this._purcharseService.purcharseRegister(purcharse).subscribe((resp) => {
+    this._saleService.saleRegister(sale).subscribe((resp) => {
       if (resp.isSuccess) {
         this._alert.success("Excelente", resp.message);
         this._route.navigate(["proceso-compras"]);

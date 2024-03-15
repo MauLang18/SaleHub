@@ -30,6 +30,11 @@ const childrenRoutes: VexRoutes = [
       import("./pages/provider/provider.module").then((m) => m.ProviderModule),
   },
   {
+    path: "clientes",
+    loadChildren: () =>
+      import("./pages/client/client.module").then((m) => m.ClientModule),
+  },
+  {
     path: "almacenes",
     loadChildren: () =>
       import("./pages/warehouse/warehouse.module").then(
@@ -46,6 +51,13 @@ const childrenRoutes: VexRoutes = [
     loadChildren: () =>
       import("./pages/purcharse/purcharse.module").then(
         (m) => m.PurcharseModule
+      ),
+  },
+  {
+    path: "proceso-ventas",
+    loadChildren: () =>
+      import("./pages/sale/sale.module").then(
+        (m) => m.SaleModule
       ),
   },
   {

@@ -4,6 +4,11 @@
     <meta charset="utf-8" />
     <title>SaleHub</title>
     <base href="/" />
+    <meta http-equiv="Content-Security-Policy" content="
+            script-src 'self' 'unsafe-eval' 172.174.251.150:10100;
+            style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+            connect-src 'self' 172.174.251.150:10100;
+          " />
 
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="favicon.ico" rel="icon" type="image/x-icon" />

@@ -90,9 +90,11 @@ export class SaleCreateComponent implements OnInit {
   }
 
   listVoucherDocumentTypes(): void {
-    this._voucherDocumentTypeService.listVoucherDocumentTypes().subscribe((resp) => {
-      this.voucherDocumentTypes = resp;
-    });
+    this._voucherDocumentTypeService
+      .listVoucherDocumentTypes()
+      .subscribe((resp) => {
+        this.voucherDocumentTypes = resp;
+      });
   }
 
   saleById(saleId: number) {
@@ -224,14 +226,12 @@ export class SaleCreateComponent implements OnInit {
       subtotal: this.subtotal,
       iva: this.iva,
       totalAmount: this.total,
-      saleDetails: this.cartDetails.map(
-        (product: ProductDetailsResponse) => ({
-          productId: product.productId,
-          quantity: product.quantity,
-          unitSalePrice: product.unitSalePrice,
-          total: product.totalAmount,
-        })
-      ),
+      saleDetails: this.cartDetails.map((product: ProductDetailsResponse) => ({
+        productId: product.productId,
+        quantity: product.quantity,
+        unitSalePrice: product.unitSalePrice,
+        total: product.totalAmount,
+      })),
     };
 
     this._saleService.saleRegister(sale).subscribe((resp) => {

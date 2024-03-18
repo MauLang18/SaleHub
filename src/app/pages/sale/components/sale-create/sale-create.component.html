@@ -31,7 +31,7 @@
                 
                     <mat-form-field appearance="outline" class="w-full">
                         <mat-label mat-label>Número de Voucher</mat-label>
-                        <input matInput formControlName="text" />
+                        <input matInput formControlName="voucherNumber" />
                         <mat-error *ngIf="form.get('voucherNumber').hasError('required')">
                             Campo Numero de Voucher es requerido.
                         </mat-error>
@@ -166,7 +166,7 @@
                     <br />
                     <div class="flex justify-end">
                         <button class="bg-accent text-accent-contrast" mat-button
-                            [disabled]="cartDetails.length == 0" (click)="saleSave()"
+                            [disabled]="form.invalid || cartDetails.length == 0" (click)="saleSave()"
                             *ngIf="!viewDetailRead">
                             GUARDAR
                         </button>

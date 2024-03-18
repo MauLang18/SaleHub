@@ -89,7 +89,7 @@ export class SaleListComponent implements OnInit {
   }
 
   saleViewDetail(sale: SaleResponse) {
-    this._router.navigate(["/proceso-venta/crear", sale.saleId]);
+    this._router.navigate(["/proceso-ventas/crear", sale.saleId]);
   }
 
   saleCancel(sale: SaleResponse) {

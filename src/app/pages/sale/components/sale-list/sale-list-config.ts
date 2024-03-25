@@ -113,6 +113,18 @@ const tableColumns: TableColumns<SaleResponse>[] = [
   {
     label: "",
     cssLabel: [],
+    property: "icReport",
+    cssProperty: [],
+    type: "icon",
+    action: "report",
+    sticky: false,
+    sort: false,
+    visible: true,
+    download: false,
+  },
+  {
+    label: "",
+    cssLabel: [],
     property: "icCancel",
     cssProperty: [],
     type: "icon",

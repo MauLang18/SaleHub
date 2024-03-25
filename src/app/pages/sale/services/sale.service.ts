@@ -8,7 +8,10 @@ import { map } from "rxjs/operators";
 import { environment as env } from "src/environments/environment";
 import { getIcon } from "@shared/functions/helpers";
 import { SaleRequest } from "../models/sale-request.interface";
-import { SaleByIdResponse, SaleResponse } from "../models/sale-response.interface";
+import {
+  SaleByIdResponse,
+  SaleResponse,
+} from "../models/sale-response.interface";
 
 @Injectable({
   providedIn: "root",
@@ -36,11 +39,8 @@ export class SaleService {
 
   private transformSaleData(response: BaseResponse): BaseResponse {
     response.data.forEach((sale: SaleResponse) => {
-      sale.icVisibility = getIcon(
-        "icVisibility",
-        "Ver Detalle de Venta",
-        true
-      );
+      sale.icReport = getIcon("icCloudDownload", "Descargar Factura", true);
+      sale.icVisibility = getIcon("icVisibility", "Ver Detalle de Venta", true);
       sale.icCancel = getIcon("icCancel", "Anular Venta", true);
     });
 
@@ -54,6 +54,31 @@ export class SaleService {
         return resp.data;
       })
     );
+  }
+
+  saleReport(saleId: number): void {
+    const requestUrl = `${env.api}${endpoint.SALE_REPORT}${saleId}`;
+
+    this._http
+      .get(requestUrl, { responseType: "blob", observe: "response" })
+      .subscribe((response) => {
+        const contentDispositionHeader = response.headers.get(
+          "Content-Disposition"
+        );
+        let fileName = `Factura de venta #${saleId}.pdf`; // Nombre por defecto
+
+        if (contentDispositionHeader) {
+          const matches = /filename=([^;]+)/g.exec(contentDispositionHeader);
+          if (matches != null && matches[1]) {
+            fileName = matches[1].trim();
+          }
+        }
+
+        const link = document.createElement("a");
+        link.href = window.URL.createObjectURL(response.body);
+        link.download = fileName;
+        link.click();
+      });
   }
 
   saleRegister(sale: SaleRequest) {

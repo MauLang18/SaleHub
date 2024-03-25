@@ -5,6 +5,7 @@ export interface SaleResponse {
   warehouse: string;
   totalAmount: number;
   dateOfSale: Date;
+  icReport: object;
   icVisibility: object;
   icCancel: object;
 }

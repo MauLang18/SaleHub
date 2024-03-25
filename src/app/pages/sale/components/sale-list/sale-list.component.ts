@@ -24,7 +24,7 @@ export class SaleListComponent implements OnInit {
     public _saleService: SaleService,
     private _router: Router
   ) {
-    customTitle.set("Compras");
+    customTitle.set("Ventas");
   }
 
   ngOnInit(): void {
@@ -80,6 +80,9 @@ export class SaleListComponent implements OnInit {
       case "viewDetail":
         this.saleViewDetail(sale);
         break;
+      case "report":
+        this.saleReport(sale);
+        break;
       case "cancel":
         this.saleCancel(sale);
         break;
@@ -90,6 +93,10 @@ export class SaleListComponent implements OnInit {
 
   saleViewDetail(sale: SaleResponse) {
     this._router.navigate(["/proceso-ventas/crear", sale.saleId]);
+  }
+
+  saleReport(sale: SaleResponse) {
+    this._saleService.saleReport(sale.saleId);
   }
 
   saleCancel(sale: SaleResponse) {

@@ -96,7 +96,7 @@ export class SaleListComponent implements OnInit {
   }
 
   saleReport(sale: SaleResponse) {
-    this._saleService.saleReport(sale.saleId);
+    this._saleService.saleReport(sale);
   }
 
   saleCancel(sale: SaleResponse) {

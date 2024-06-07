@@ -56,28 +56,22 @@ export class SaleService {
     );
   }
 
-  saleReport(saleId: number): void {
-    const requestUrl = `${env.api}${endpoint.SALE_REPORT}${saleId}`;
+  saleReport(data: SaleResponse): void {
+    const requestUrl = `${env.api}${endpoint.SALE_REPORT}${data.saleId}`;
 
     this._http
       .get(requestUrl, { responseType: "blob", observe: "response" })
       .subscribe((response) => {
-        const contentDispositionHeader = response.headers.get(
-          "Content-Disposition"
-        );
-        let fileName = `Factura de venta #${saleId}.pdf`; // Nombre por defecto
-
-        if (contentDispositionHeader) {
-          const matches = /filename=([^;]+)/g.exec(contentDispositionHeader);
-          if (matches != null && matches[1]) {
-            fileName = matches[1].trim();
-          }
-        }
+        let fileName = `${data.voucherNumber}.pdf`; 
 
         const link = document.createElement("a");
         link.href = window.URL.createObjectURL(response.body);
         link.download = fileName;
         link.click();
+
+        // Cleanup
+        link.remove();
+        window.URL.revokeObjectURL(link.href);
       });
   }
 

@@ -13,7 +13,7 @@ export class CustomTitleService {
     }
 
     set(title) {
-        this.titleService.setTitle(this.prefix + title +" - SaleHub")
+        this.titleService.setTitle(this.prefix + title +" - InvenTrack")
     }
 
 }

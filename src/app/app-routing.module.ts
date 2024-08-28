@@ -7,59 +7,72 @@ import { AuthGuard } from "@shared/guards/auth.guard";
 
 const childrenRoutes: VexRoutes = [
   {
-    path: "estadisticas",
+    path: "departamentos",
     loadChildren: () =>
-      import("./pages/dashboard/dashboard.module").then(
-        (m) => m.DashboardModule
+      import("./pages/department/department.module").then(
+        (m) => m.DepartmentModule
       ),
     data: {
       containerEnabled: true,
     },
   },
   {
-    path: "categorias",
+    path: "ubicaciones",
     loadChildren: () =>
-      import("./pages/category/category.module").then((m) => m.CategoryModule),
+      import("./pages/location/location.module").then(
+        (m) => m.LocationModule
+      ),
     data: {
       containerEnabled: true,
     },
   },
   {
-    path: "proveedores",
+    path: "empleados",
     loadChildren: () =>
-      import("./pages/provider/provider.module").then((m) => m.ProviderModule),
-  },
-  {
-    path: "clientes",
-    loadChildren: () =>
-      import("./pages/client/client.module").then((m) => m.ClientModule),
-  },
-  {
-    path: "almacenes",
-    loadChildren: () =>
-      import("./pages/warehouse/warehouse.module").then(
-        (m) => m.WarehouseModule
+      import("./pages/employee/employee.module").then(
+        (m) => m.EmployeeModule
       ),
+    data: {
+      containerEnabled: true,
+    },
   },
   {
-    path: "productos",
+    path: "tipo-de-equipos",
     loadChildren: () =>
-      import("./pages/product/product.module").then((m) => m.ProductModule),
+      import("./pages/equipment-type/equipment-type.module").then((m) => m.EquipmentTypeModule),
+    data: {
+      containerEnabled: true,
+    },
   },
   {
-    path: "proceso-compras",
+    path: "inventarios",
     loadChildren: () =>
-      import("./pages/purcharse/purcharse.module").then(
-        (m) => m.PurcharseModule
-      ),
+      import("./pages/inventory/inventory.module").then((m) => m.InventoryModule),
   },
-  {
-    path: "proceso-ventas",
-    loadChildren: () =>
-      import("./pages/sale/sale.module").then(
-        (m) => m.SaleModule
-      ),
-  },
+  // {
+  //   path: "clientes",
+  //   loadChildren: () =>
+  //     import("./pages/client/client.module").then((m) => m.ClientModule),
+  // },
+  // {
+  //   path: "almacenes",
+  //   loadChildren: () =>
+  //     import("./pages/warehouse/warehouse.module").then(
+  //       (m) => m.WarehouseModule
+  //     ),
+  // },
+  // {
+  //   path: "productos",
+  //   loadChildren: () =>
+  //     import("./pages/product/product.module").then((m) => m.ProductModule),
+  // },
+  // {
+  //   path: "proceso-ventas",
+  //   loadChildren: () =>
+  //     import("./pages/sale/sale.module").then(
+  //       (m) => m.SaleModule
+  //     ),
+  // },
   {
     path: "**",
     component: NotFoundComponent,
@@ -69,7 +82,7 @@ const childrenRoutes: VexRoutes = [
 const routes: VexRoutes = [
   {
     path: "",
-    redirectTo: "estadisticas",
+    redirectTo: "inventarios",
     pathMatch: "full",
   },
   {

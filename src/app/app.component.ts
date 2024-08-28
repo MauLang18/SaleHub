@@ -37,7 +37,7 @@ export class AppComponent {
 
     this.configService.updateConfig({
       sidenav: {
-        title: "SaleHub",
+        title: "InvenTrack",
         imageUrl: "/assets/img/demo/logo.svg",
         showCollapsePin: true,
       },
@@ -73,62 +73,80 @@ export class AppComponent {
     this.navigationService.items = [
       {
         type: "link",
-        label: "Estadísticas",
-        route: "estadisticas",
-        icon: IconsService.prototype.getIcon("icDashboard"),
+        label: "Departamentos",
+        route: "departamentos",
+        icon: IconsService.prototype.getIcon("icDepartment"),
       },
       {
         type: "link",
-        label: "Almacenes",
-        route: "almacenes",
-        icon: IconsService.prototype.getIcon("icWarehouse"),
-      },
-      {
-        type: "dropdown",
-        label: "Catálogo",
-        icon: IconsService.prototype.getIcon("icManage"),
-        children: [
-          {
-            type: "link",
-            label: "Categorias",
-            route: "categorias",
-          },
-          {
-            type: "link",
-            label: "Productos",
-            route: "productos",
-          },
-        ],
+        label: "Ubicaciones",
+        route: "ubicaciones",
+        icon: IconsService.prototype.getIcon("icLocation"),
       },
       {
         type: "link",
-        label: "Proveedores",
-        route: "proveedores",
+        label: "Empleados",
+        route: "empleados",
         icon: IconsService.prototype.getIcon("icProvider"),
       },
       {
         type: "link",
-        label: "Clientes",
-        route: "clientes",
-        icon: IconsService.prototype.getIcon("icProvider"),
+        label: "Tipo de equipos",
+        route: "tipo-de-equipos",
+        icon: IconsService.prototype.getIcon("icCategory"),
       },
       {
-        type: "dropdown",
-        label: "Procesos",
-        icon: IconsService.prototype.getIcon("icSales"),
-        children: [
-          {
-            type: "link",
-            label: "Proceso de Compras",
-            route: "proceso-compras",
-          },
-          {
-            type: "link",
-            label: "Proceso de Ventas",
-            route: "proceso-ventas",
-          },
-        ],
+        type: "link",
+        label: "Inventario",
+        route: "inventarios",
+        icon: IconsService.prototype.getIcon("icProduct"),
       },
+      // {
+      //   type: "dropdown",
+      //   label: "Catálogo",
+      //   icon: IconsService.prototype.getIcon("icManage"),
+      //   children: [
+      //     {
+      //       type: "link",
+      //       label: "Categorias",
+      //       route: "categorias",
+      //     },
+      //     {
+      //       type: "link",
+      //       label: "Productos",
+      //       route: "productos",
+      //     },
+      //   ],
+      // },
+      // {
+      //   type: "link",
+      //   label: "Proveedores",
+      //   route: "proveedores",
+      //   icon: IconsService.prototype.getIcon("icProvider"),
+      // },
+      // {
+      //   type: "link",
+      //   label: "Clientes",
+      //   route: "clientes",
+      //   icon: IconsService.prototype.getIcon("icProvider"),
+      // },
+      // {
+      //   type: "dropdown",
+      //   label: "Procesos",
+      //   icon: IconsService.prototype.getIcon("icSales"),
+      //   children: [
+      //     {
+      //       type: "link",
+      //       label: "Proceso de Compras",
+      //       route: "proceso-compras",
+      //     },
+      //     {
+      //       type: "link",
+      //       label: "Proceso de Ventas",
+      //       route: "proceso-ventas",
+      //     },
+      //   ],
+      // },
     ];
   }
 }
